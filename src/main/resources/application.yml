@@ -1,0 +1,27 @@
+spring:
+  mvc:
+    view:
+      prefix: /WEB-INF/classes/views/
+      suffix: .jsp
+    date-format: dd/MM/yyyy
+  datasource:
+    url: jdbc:mysql://sermo.rdsmcpv1thd1vzy.rds.bj.baidubce.com:3306/spring_boot?useUnicode=true&characterEncoding=utf8
+    username: renqing
+    password: renqing123456
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    max-active: 20
+    initial-size: 1
+    max-wait: 60000
+    min-idle: 1
+    time-between-eviction-runs-millis: 3000
+    min-evictable-idle-time-millis: 300000
+    validation-query: SELECT 'x'  FROM DUAL
+    test-while-idle: true
+    test-on-borrow: false
+    test-on-return: false
+multipart:
+  location: e:/upload
+  max-file-size: 100MB
+mybatis:
+  type-aliases-package: com.sermo.xx.model
