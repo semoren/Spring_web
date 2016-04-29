@@ -1,9 +1,8 @@
 spring:
   mvc:
     view:
-      prefix: /WEB-INF/classes/views/
-      suffix: .jsp
-    date-format: dd/MM/yyyy
+      prefix: /WEB-INF/classes/static/
+      suffix: .html
   datasource:
     url: jdbc:mysql://sermo.rdsmcpv1thd1vzy.rds.bj.baidubce.com:3306/spring_boot?useUnicode=true&characterEncoding=utf8
     username: renqing
@@ -22,6 +21,6 @@ spring:
     test-on-return: false
 multipart:
   location: e:/upload
-  max-file-size: 100MB
-mybatis:
-  type-aliases-package: com.sermo.xx.model
+  max-file-size: 100MB  
+server:
+  port: 8090
