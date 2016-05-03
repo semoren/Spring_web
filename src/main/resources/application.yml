@@ -1,7 +1,6 @@
 spring:
   mvc:
     view:
-      prefix: /WEB-INF/classes/static/
       suffix: .html
   datasource:
     url: jdbc:mysql://sermo.rdsmcpv1thd1vzy.rds.bj.baidubce.com:3306/spring_boot?useUnicode=true&characterEncoding=utf8
