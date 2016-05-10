@@ -8,7 +8,6 @@ public class HelloController {
 	
 	@RequestMapping("/login")
 	public String login(){
-		System.out.println("页面调转");
-		return "index";
+		return "logins/login";
 	}
 }
