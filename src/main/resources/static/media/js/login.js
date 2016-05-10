@@ -9,7 +9,7 @@ var Login = function () {
 	            errorClass: 'help-inline', // default input error message class
 	            focusInvalid: false, // do not focus the last invalid input
 	            rules: {
-	                username: {
+	                email: {
 	                    required: true
 	                },
 	                password: {
@@ -21,11 +21,11 @@ var Login = function () {
 	            },
 
 	            messages: {
-	                username: {
-	                    required: "Username is required."
+	                email: {
+	                    required: "登陆邮箱不能为空."
 	                },
 	                password: {
-	                    required: "Password is required."
+	                    required: "密码不能为空."
 	                }
 	            },
 
@@ -48,14 +48,16 @@ var Login = function () {
 	            },
 
 	            submitHandler: function (form) {
-	                window.location.href = "index.html";
+//	                window.location.href = "index.html";
+	                $(form).ajaxSubmit();
 	            }
 	        });
 
 	        $('.login-form input').keypress(function (e) {
 	            if (e.which == 13) {
 	                if ($('.login-form').validate().form()) {
-	                    window.location.href = "index.html";
+//	                    window.location.href = "index.html";
+	                    $(form).ajaxSubmit();
 	                }
 	                return false;
 	            }
@@ -75,7 +77,7 @@ var Login = function () {
 
 	            messages: {
 	                email: {
-	                    required: "Email is required."
+	                    required: "邮箱不能为空."
 	                }
 	            },
 
@@ -99,6 +101,7 @@ var Login = function () {
 
 	            submitHandler: function (form) {
 	                window.location.href = "index.html";
+//	                $(form).ajaxSubmit();
 	            }
 	        });
 
@@ -106,6 +109,7 @@ var Login = function () {
 	            if (e.which == 13) {
 	                if ($('.forget-form').validate().form()) {
 	                    window.location.href = "index.html";
+//	                    $(form).ajaxSubmit();
 	                }
 	                return false;
 	            }
