@@ -100,16 +100,16 @@ var Login = function () {
 	            },
 
 	            submitHandler: function (form) {
-	                window.location.href = "index.html";
-//	                $(form).ajaxSubmit();
+//	                window.location.href = "index.html";
+	                $(form).ajaxSubmit();
 	            }
 	        });
 
 	        $('.forget-form input').keypress(function (e) {
 	            if (e.which == 13) {
 	                if ($('.forget-form').validate().form()) {
-	                    window.location.href = "index.html";
-//	                    $(form).ajaxSubmit();
+//	                    window.location.href = "index.html";
+	                    $(form).ajaxSubmit();
 	                }
 	                return false;
 	            }
@@ -137,21 +137,21 @@ var Login = function () {
 	                password: {
 	                    required: true
 	                },
-	                rpassword: {
-	                    equalTo: "#register_password"
-	                },
 	                email: {
 	                    required: true,
 	                    email: true
-	                },
-	                tnc: {
-	                    required: true
 	                }
 	            },
-
-	            messages: { // custom messages for radio buttons and checkboxes
-	                tnc: {
-	                    required: "Please accept TNC first."
+	            
+	            messages: {
+	            	username: {
+	            		required: "昵称不能为空"
+	            	},
+	                email: {
+	                    required: "登陆邮箱不能为空."
+	                },
+	                password: {
+	                    required: "密码不能为空."
 	                }
 	            },
 
@@ -167,14 +167,6 @@ var Login = function () {
 	            success: function (label) {
 	                label.closest('.control-group').removeClass('error');
 	                label.remove();
-	            },
-
-	            errorPlacement: function (error, element) {
-	                if (element.attr("name") == "tnc") { // insert checkbox errors after the container                  
-	                    error.addClass('help-small no-left-padding').insertAfter($('#register_tnc_error'));
-	                } else {
-	                    error.addClass('help-small no-left-padding').insertAfter(element.closest('.input-icon'));
-	                }
 	            },
 
 	            submitHandler: function (form) {
