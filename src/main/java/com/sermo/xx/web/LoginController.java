@@ -7,9 +7,13 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.fasterxml.jackson.annotation.ObjectIdGenerators.UUIDGenerator;
 import com.sermo.xx.model.UserInfo;
 import com.sermo.xx.service.UserInfoService;
 import com.sermo.xx.utils.IPUtil;
+import com.sermo.xx.utils.MD5;
+import com.sermo.xx.utils.UUIDUtil;
 
 @Controller
 public class LoginController {
@@ -20,11 +24,10 @@ public class LoginController {
 	private UserInfoService service;
 	
 	@RequestMapping("/confirmLogin")
-	public String login(HttpServletRequest request, HttpSession session, String email, String password){
-//		boolean falg = service.login(password, email);
-		boolean falg = true;
+	public String login(HttpServletRequest request, HttpSession session, String email, String password, String remember){
+		boolean falg = service.login(password, email);
 		if (falg) {
-			logger.info("登陆成功|" + email + "|" + IPUtil.getIp2(request));
+			logger.info("login|" + email + "|" + IPUtil.getIp2(request));
 			session.setAttribute("email", email);
 			return "redirect:/login_soft";
 		}else{
@@ -52,7 +55,17 @@ public class LoginController {
 	
 	@RequestMapping("/register")
 	public String register(HttpServletRequest request, UserInfo userInfo){
-		logger.info("注册用户|" + userInfo.getEmail() + "|" + IPUtil.getIp2(request));
-		return "logins/login";
+		boolean falg = service.insert(userInfo);
+		if (falg) {
+			logger.info("register|" + userInfo.getEmail() + "|" + IPUtil.getIp2(request));
+			return "logins/login";
+		}
+		return null;
+	}
+	
+	@RequestMapping("/emailIsExits")
+	@ResponseBody
+	public boolean emailIsExits(String email){
+		return service.emailIsExits(email);
 	}
 }

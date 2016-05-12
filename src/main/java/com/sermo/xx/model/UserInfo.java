@@ -1,20 +1,39 @@
 package com.sermo.xx.model;
 
 import java.io.Serializable;
+import java.util.Date;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 public class UserInfo  implements Serializable{
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 6710210767023638396L;
-
+	
+	private String id;
+	
 	private String email;
 	
-	private String userName;
+	private String username;
 	
 	private String password;
 	
 	private String token;
+	
+	@DateTimeFormat(pattern="yyyy/MM/dd hh:mm:ss")
+	private Date createTime;
+
+	@DateTimeFormat(pattern="yyyy/MM/dd hh:mm:ss")
+	private Date updateTime;
+	
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
 
 	public String getEmail() {
 		return email;
@@ -24,12 +43,12 @@ public class UserInfo  implements Serializable{
 		this.email = email;
 	}
 
-	public String getUserName() {
-		return userName;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public String getPassword() {
@@ -46,6 +65,22 @@ public class UserInfo  implements Serializable{
 
 	public void setToken(String token) {
 		this.token = token;
+	}
+
+	public Date getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
+	}
+
+	public Date getUpdateTime() {
+		return updateTime;
+	}
+
+	public void setUpdateTime(Date updateTime) {
+		this.updateTime = updateTime;
 	}
 	
 }
