@@ -115,7 +115,7 @@ var Login = function () {
 	            }
 	        });
 
-	        jQuery('#forget-password').click(function () {
+	        /*jQuery('#forget-password').click(function () {
 	            jQuery('.login-form').hide();
 	            jQuery('.forget-form').show();
 	        });
@@ -123,7 +123,7 @@ var Login = function () {
 	        jQuery('#back-btn').click(function () {
 	            jQuery('.login-form').show();
 	            jQuery('.forget-form').hide();
-	        });
+	        });*/
 
 	        $('.register-form').validate({
 	            errorElement: 'label', //default input error message container
@@ -176,15 +176,15 @@ var Login = function () {
 	            }
 	        });
 
-	        jQuery('#register-btn').click(function () {
-	            jQuery('.login-form').hide();
-	            jQuery('.register-form').show();
-	        });
-
-	        jQuery('#register-back-btn').click(function () {
-	            jQuery('.login-form').show();
-	            jQuery('.register-form').hide();
-	        });
+//	        jQuery('#register-btn').click(function () {
+//	            jQuery('.login-form').hide();
+//	            jQuery('.register-form').show();
+//	        });
+//
+//	        jQuery('#register-back-btn').click(function () {
+//	            jQuery('.login-form').show();
+//	            jQuery('.register-form').hide();
+//	        });
         }
 
     };
