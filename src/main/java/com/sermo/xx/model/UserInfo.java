@@ -21,6 +21,8 @@ public class UserInfo  implements Serializable{
 	
 	private String token;
 	
+	private String resetKey;
+	
 	@DateTimeFormat(pattern="yyyy/MM/dd hh:mm:ss")
 	private Date createTime;
 
@@ -65,6 +67,14 @@ public class UserInfo  implements Serializable{
 
 	public void setToken(String token) {
 		this.token = token;
+	}
+
+	public String getResetKey() {
+		return resetKey;
+	}
+
+	public void setResetKey(String resetKey) {
+		this.resetKey = resetKey;
 	}
 
 	public Date getCreateTime() {

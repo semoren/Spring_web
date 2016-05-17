@@ -75,9 +75,15 @@ public class LoginController {
 	 * @return
 	 */
 	@RequestMapping(value="/reset_password", method = RequestMethod.POST)
-	public @ResponseBody String reset_password(String email){
-		logger.info("重置密码|" + email);
-		return "ok";
+	public String reset_password(String email){
+		boolean falg = service.sendEmail(email);
+		if (falg) {
+			logger.info("重置密码邮件发送,success," + email);
+			return "redirect:/login";
+		}else{
+			logger.info("重置密码邮件发送,,fail" + email);
+			return "500";
+		}
 	}
 
 	/**
@@ -100,6 +106,23 @@ public class LoginController {
 		boolean falg = service.insert(userInfo);
 		logger.info("register|" + userInfo.getEmail() + "|" + IPUtil.getIp2(request) + "|" + falg);
 		return falg;
+	}
+	
+	/**
+	 * 重置密码页面
+	 * @param request
+	 * @param email
+	 * @param resetKey
+	 * @return
+	 */
+	@RequestMapping(value="/change_password", method = RequestMethod.GET)
+	public String change_password(HttpServletRequest request, String email, String resetKey, HttpSession session){
+		session.setAttribute(email, email);
+		boolean falg = service.selectByKey(email, resetKey);
+		if (falg) {
+			return "logins/change_password";
+		}
+		return "500";
 	}
 	
 	@RequestMapping("/emailIsExits")

@@ -1,5 +1,7 @@
 package com.sermo.xx.service;
 
+import javax.mail.MessagingException;
+
 import com.sermo.xx.model.UserInfo;
 
 public interface UserInfoService {
@@ -25,4 +27,20 @@ public interface UserInfoService {
 	 * @return
 	 */
 	public boolean insert(UserInfo info);
+	
+	/**
+	 * 发送重置密码邮件
+	 * @param email
+	 * @return
+	 * @throws MessagingException
+	 */
+	public boolean sendEmail(String email);
+	
+	/**
+	 * 根据 resetKey 和 email 判断信息是否存在
+	 * @param email
+	 * @param resetKey
+	 * @return
+	 */
+	public boolean selectByKey(String email, String resetKey);
 }
