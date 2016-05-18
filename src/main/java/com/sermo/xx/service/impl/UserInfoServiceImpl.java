@@ -90,4 +90,16 @@ public class UserInfoServiceImpl implements UserInfoService{
 		}
 		return true;
 	}
+
+	@Override
+	public boolean updatePassword(String email, String password) {
+		String token = UUIDUtil.UUIDGenerator();
+		password = MD5.encrypt(password + "|" + token, "MD5");
+		UserInfo userInfo = new UserInfo();
+		userInfo.setEmail(email);
+		userInfo.setPassword(password);
+		userInfo.setToken(token);
+		userInfo.setUpdateTime(new Date());
+		return userInfoDao.updatePassword(userInfo);
+	}
 }

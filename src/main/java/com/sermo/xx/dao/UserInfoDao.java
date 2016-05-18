@@ -29,4 +29,7 @@ public interface UserInfoDao {
 	
 	@Select("select count(email) from userInfo where reset_key=#{resetKey} and email=#{email}")
 	public int selectByKey(@Param("email") String email, @Param("resetKey") String resetKey);
+	
+	@Update("update userInfo set password=#{userInfo.password}, token=#{userInfo.token}, updateTime=#{userInfo.updateTime}, reset_key=null where email=#{userInfo.email}")
+	public boolean updatePassword(@Param("userInfo") UserInfo userInfo);
 }

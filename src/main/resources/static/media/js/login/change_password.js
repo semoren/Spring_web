@@ -1,23 +1,27 @@
-var Forget = function () {
+var ChangePassword = function () {
     
     return {
         //main function to initiate the module
         init: function () {
-	        $('.forget-form').validate({
+	        $('.change-password-form').validate({
 	            errorElement: 'label', //default input error message container
 	            errorClass: 'help-inline', // default input error message class
 	            focusInvalid: false, // do not focus the last invalid input
 	            ignore: "",
 	            rules: {
-	                email: {
-	                    required: true,
-	                    email: true
-	                }
+	                password: {
+	                    required: true
+	                },
+	                rpassword: {
+	                    equalTo: "#register_password"
+	                },
 	            },
 	            messages: {
-	                email: {
-	                    required: "邮箱不能为空.",
-	                    email: "请输入正确的邮箱."
+	                password: {
+	                    required: "密码不能为空."
+	                },
+	                rpassword: {
+	                	equalTo: "请输入相同的密码"
 	                }
 	            },
 	            invalidHandler: function (event, validator) { //display error alert on form submit   
@@ -31,22 +35,11 @@ var Forget = function () {
 	                label.closest('.control-group').removeClass('error');
 	                label.remove();
 	            },
-	            errorPlacement: function (error, element) {
-	                error.addClass('help-small no-left-padding').insertAfter(element.closest('.input-icon'));
-	            },
 	            submitHandler: function (form) {
-	                $(form).ajaxSubmit();
+	            	$(form).ajaxSubmit();
 	            }
 	        });
-	        $('.forget-form input').keypress(function (e) {
-	            if (e.which == 13) {
-	                if ($('.forget-form').validate().form()) {
-	                    $(form).ajaxSubmit();
-	                }
-	                return false;
-	            }
-	        });
-	        jQuery('#back-btn').click(function () {
+	        jQuery('#register-back-btn').click(function () {
 	        	window.location.href = "/login";
 	        });
         }

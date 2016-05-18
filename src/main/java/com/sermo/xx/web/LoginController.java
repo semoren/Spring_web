@@ -1,4 +1,6 @@
 package com.sermo.xx.web;
+import java.util.Date;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -8,9 +10,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.sermo.xx.model.User;
 import com.sermo.xx.model.UserInfo;
 import com.sermo.xx.service.UserInfoService;
 import com.sermo.xx.utils.IPUtil;
+import com.sermo.xx.utils.MD5;
+import com.sermo.xx.utils.UUIDUtil;
 
 @Controller
 public class LoginController {
@@ -41,7 +47,7 @@ public class LoginController {
 	@RequestMapping(value="/login", method = RequestMethod.POST)
 	public String login(HttpServletRequest request, HttpSession session, String email, String password, String remember){
 		boolean falg = service.login(password, email);
-		logger.info("login|" + email + "|" + IPUtil.getIp2(request)+ "|" + falg);
+		logger.info("login," + email + "," + IPUtil.getIp2(request)+ "," + falg);
 		if (falg) {
 			session.setAttribute("email", email);
 			return "redirect:/login_soft";
@@ -77,11 +83,10 @@ public class LoginController {
 	@RequestMapping(value="/reset_password", method = RequestMethod.POST)
 	public String reset_password(String email){
 		boolean falg = service.sendEmail(email);
+		logger.info("reset_password," + email + "," + falg);
 		if (falg) {
-			logger.info("重置密码邮件发送,success," + email);
 			return "redirect:/login";
 		}else{
-			logger.info("重置密码邮件发送,,fail" + email);
 			return "500";
 		}
 	}
@@ -104,7 +109,7 @@ public class LoginController {
 	@RequestMapping(value="/register", method = RequestMethod.POST)
 	public @ResponseBody boolean register(HttpServletRequest request, UserInfo userInfo){
 		boolean falg = service.insert(userInfo);
-		logger.info("register|" + userInfo.getEmail() + "|" + IPUtil.getIp2(request) + "|" + falg);
+		logger.info("register," + userInfo.getEmail() + "," + IPUtil.getIp2(request) + "," + falg);
 		return falg;
 	}
 	
@@ -116,11 +121,29 @@ public class LoginController {
 	 * @return
 	 */
 	@RequestMapping(value="/change_password", method = RequestMethod.GET)
-	public String change_password(HttpServletRequest request, String email, String resetKey, HttpSession session){
-		session.setAttribute(email, email);
-		boolean falg = service.selectByKey(email, resetKey);
+	public String change_password(HttpServletRequest request, String email, String reset_key, HttpSession session){
+		session.setAttribute("email", email);
+		boolean falg = service.selectByKey(email, reset_key);
 		if (falg) {
 			return "logins/change_password";
+		}
+		return "500";
+	}
+	
+	/**
+	 * 重置密码页面
+	 * @param request
+	 * @param email
+	 * @param resetKey
+	 * @return
+	 */
+	@RequestMapping(value="/change_password", method = RequestMethod.POST)
+	public String change_password(HttpServletRequest request, String password, HttpSession session){
+		String email = (String) session.getAttribute("email");
+		boolean falg = service.updatePassword(email, password);
+		logger.info("change_password," + email + "," + falg);
+		if (falg) {
+			return "redirect:/login";
 		}
 		return "500";
 	}

@@ -43,4 +43,11 @@ public interface UserInfoService {
 	 * @return
 	 */
 	public boolean selectByKey(String email, String resetKey);
+	
+	/**
+	 * 根据 email 重置密码
+	 * @param userInfo
+	 * @return
+	 */
+	public boolean updatePassword(String email, String password);
 }
