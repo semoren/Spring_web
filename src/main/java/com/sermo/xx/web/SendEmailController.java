@@ -4,7 +4,8 @@ import javax.annotation.Resource;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -15,7 +16,7 @@ import com.sermo.xx.utils.StringUtil;
 
 @Controller
 public class SendEmailController {
-	private static Logger logger = Logger.getLogger(SendEmailController.class);
+	private static Logger logger = LoggerFactory.getLogger(SendEmailController.class);
 	
 	private @Value("${spirng.mail.text}") String mailText;
 	

@@ -1,28 +1,22 @@
 package com.sermo.xx.web;
-import java.util.Date;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.sermo.xx.model.User;
 import com.sermo.xx.model.UserInfo;
 import com.sermo.xx.service.UserInfoService;
 import com.sermo.xx.utils.IPUtil;
-import com.sermo.xx.utils.MD5;
-import com.sermo.xx.utils.UUIDUtil;
 
 @Controller
 public class LoginController {
 	
-	private static Logger logger = Logger.getLogger(LoginController.class);
-	
+	private static final Logger LOGGER = LoggerFactory.getLogger(LoginController.class);
 	@Resource
 	private UserInfoService service;
 	
@@ -47,7 +41,7 @@ public class LoginController {
 	@RequestMapping(value="/login", method = RequestMethod.POST)
 	public String login(HttpServletRequest request, HttpSession session, String email, String password, String remember){
 		boolean falg = service.login(password, email);
-		logger.info("login," + email + "," + IPUtil.getIp2(request)+ "," + falg);
+		LOGGER.info("login," + email + "," + IPUtil.getIp2(request)+ "," + falg);
 		if (falg) {
 			session.setAttribute("email", email);
 			return "redirect:/login_soft";
@@ -83,7 +77,7 @@ public class LoginController {
 	@RequestMapping(value="/reset_password", method = RequestMethod.POST)
 	public String reset_password(String email){
 		boolean falg = service.sendEmail(email);
-		logger.info("reset_password," + email + "," + falg);
+		LOGGER.info("reset_password," + email + "," + falg);
 		if (falg) {
 			return "redirect:/login";
 		}else{
@@ -109,7 +103,7 @@ public class LoginController {
 	@RequestMapping(value="/register", method = RequestMethod.POST)
 	public @ResponseBody boolean register(HttpServletRequest request, UserInfo userInfo){
 		boolean falg = service.insert(userInfo);
-		logger.info("register," + userInfo.getEmail() + "," + IPUtil.getIp2(request) + "," + falg);
+		LOGGER.info("register," + userInfo.getEmail() + "," + IPUtil.getIp2(request) + "," + falg);
 		return falg;
 	}
 	
@@ -141,7 +135,7 @@ public class LoginController {
 	public String change_password(HttpServletRequest request, String password, HttpSession session){
 		String email = (String) session.getAttribute("email");
 		boolean falg = service.updatePassword(email, password);
-		logger.info("change_password," + email + "," + falg);
+		LOGGER.info("change_password," + email + "," + falg);
 		if (falg) {
 			return "redirect:/login";
 		}
